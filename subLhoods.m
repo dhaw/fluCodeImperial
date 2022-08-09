@@ -19,7 +19,7 @@ xdata(xdata>threshu)=[];
 
 maxinc=max(max(ydataNX));
 %% Multiplicative factor here modified by state
-thresh=floor(max(max(ydataNX))/10);%.1*
+thresh=.1*floor(max(max(ydataNX))/10);%.1*
 %%
 
 %{

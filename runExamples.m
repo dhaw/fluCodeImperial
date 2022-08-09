@@ -15,7 +15,7 @@ load('cellZ2.mat','cellZ2','realZ2');
 
 %% Load/select objects
 %Select state for single-state plots:
-state=1;%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
+state=6;%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
 names={'California','Colorado','Connecticut','Georgia','Maryland','Minnesota','New Mexico','New York','Oregon','Tennessee'};
 stateName=names{state};
 %
@@ -92,4 +92,32 @@ for i=1:length(cellx)
     realZ2(:,i)=realZ2i;
     NNsums(i)=sum(cellNN{i});
 end
+%}
+%% Table of mean/95% CB values for marginals
+%{
+colPerState=4;
+lc=length(cellxsto);
+[a,b]=size(cellxsto{1});
+C=[1.9200    0.4268    0.5260    0.2554    0.1665;
+    1.7600    8.7522    2.2855    1.0876    1.2190;
+    4.0700    4.5939    6.6160    4.5939    2.9494;
+    0.9000    0.8885    1.6180    2.3847    1.6919;
+    0.2300    0.2975    0.5712    0.8756    1.8930]';
+C=reshape(C,25,1);
+clim=[.8*C,1.2*C];
+%plim=[.5,0;90,-30;.5,0;.7,.4;.6,.4;200,0;3,1;2,.001];
+%plim=[plim(:,2),plim(:,1)];
+plim=[0,.3;-31,31;0,.4;.495,.605;.4,.6;-100,100;1.305,1.595;1/4,1/1.5];
+%plim=[plim(1:2,:);clim;plim(3:end,:)];
+table=zeros(b,colPerState*lc);
+for i=1:lc
+    xstoi=cellxsto{i};
+    ind=(i-1)*colPerState+1;
+    table(:,ind)=mean(xsto,1);
+    %table(:,ind+1:ind+2)=prctile(xstoi,[2.5,97.5],1)';
+    table(:,ind+1:ind+3)=prctile(xstoi,[50,2.5,97.5],1)';
+end
+plim=[plim;clim];
+table=[plim,[table([1,2,28:33],:);table(3:27,:)]];%Just numbers for latex table
+writematrix(round(table,2),'mcmcSummary.csv')
 %}
