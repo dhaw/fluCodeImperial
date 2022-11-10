@@ -1,4 +1,9 @@
 function f=subLhoods(NNbar,params,xdata,ydataNX,vaxparams)
+%Likelihood function evalated at "params":
+%Simulated incidence divided by true admissions
+%Normal likelihood evaluated with mu and sigma corresponding to 
+%hospitalisation mutipliers from literature ("mu" and "sig")
+
 %Input data - hospitalisations (i.e. without multipliers)
 totalInc=0;
 %thresh=floor(max(max(ydataNX))/10);

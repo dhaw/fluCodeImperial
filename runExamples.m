@@ -1,4 +1,5 @@
 function f=runExamples
+%This code will generate all figure from the paper
 load('vaxparams.mat','vaxparams')
 load('cellNN.mat','cellNN','NNsums','NNbarTotal')
 %NNsums: state totals; NNbarTotal: age-groups summed by states
@@ -15,11 +16,11 @@ load('cellZ2.mat','cellZ2','realZ2');
 
 %% Load/select objects
 %Select state for single-state plots:
-state=6;%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
+state=1;%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
 names={'California','Colorado','Connecticut','Georgia','Maryland','Minnesota','New Mexico','New York','Oregon','Tennessee'};
 stateName=names{state};
 %
-NNbar=cellNN{state}';%Trasnspose necessary
+NNbar=cellNN{state}';
 xdata=cellx{state};
 ydata=celly{state};
 ydataScaled=cellyScaled{state};
@@ -49,7 +50,7 @@ plotEpis=0;%Plots ODE output
 plotDataAllStates(cellNN,cellx,cellyScaled);
 
 %% FIGURE 2 - trajectories with uncertainty from MCMC (selected state):
-subWave2Z1(NNbar,xdata,ydata,ydataScaled,0,vaxparams,0,xsto);%2 unused arguments
+subWave2Z1(NNbar,xdata,ydata,ydataScaled,0,vaxparams,0,xsto);
 
 %% FIGURE 3 - fall-wave cumulative cases (Z2) for all states:
 plotz2(cellZ2,realZ2,NNsums)%xxToDo - check
@@ -66,7 +67,7 @@ plotDataBars(cellx,cellyScaled,cellNN);
 %% FIGURE S2 - plots as figure 2 for all states in a single figure:
 subUncertaintyPlotAll(cellNN,cellxsto,cellx,celly,vaxparams);
 
-%% FIGURE S3 - MCMC traces for parameters a and b (see above for parameter numbers):
+%% FIGURE S3 - MCMC traces for parameters a and b (see above for parameter indices):
 a=32; b=33;
 plotMCMCproj(xsto,a,b);
 
@@ -76,10 +77,12 @@ plotVax09(vaxparams,NNbarTotal);
 %% Run MCMC:
 [xsto_new, outsto, history, accept_rate,covmat]=subMCMC(NNbar,xdata,ydataScaled,xsto(1,:),vaxparams);
 %Note a subtle change in threshold for each in the likelihood function
-%subLhood.m swas used. It is currently set of CA and is commented should
+%subLhood.m was used. It is currently set of CA and is commented should
 %the user wish to experiment
 
-%% Make cell/array of Z2 (simulated/real): xxToDo - save/add load command
+%% Comment in to make cellZ2/realZ2 (saved objects):
+%cellZ2 is a cell array of simulated secondary attack rates (fall wave)
+%realZ2 is an array of secondary attack rates in data
 %{
 nstates=length(cellx);
 nages=size(celly{1},2);
@@ -93,7 +96,7 @@ for i=1:length(cellx)
     NNsums(i)=sum(cellNN{i});
 end
 %}
-%% Table of mean/95% CB values for marginals
+%% Comment in to cable of mean/95% CB values for marginals
 %{
 colPerState=4;
 lc=length(cellxsto);

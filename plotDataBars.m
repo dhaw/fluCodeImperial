@@ -1,8 +1,7 @@
 function f=plotDataBars(cellx,cellyScaled,cellNN)
 nstates=length(cellx);
-A=zeros(nstates,2,5);%state x attack x age
+A=zeros(nstates,2,5);%state/wave/age
 thresh=35;
-%meanHosp=[393.0256  999.3054  702.6867  406.0680  177.1958];
 for i=1:nstates
     x=cellx{i};
     y=cellyScaled{i};
@@ -12,4 +11,5 @@ for i=1:nstates
 end
 
 names={'CA','CO','CT','GA','MD','MN','NM','NY','OR','TN'};
-plotBarStackGroups(A,names);%Axis labes in here
+plotBarStackGroups(A,names);
+%Axis labes hard coded in "plotBarStackGroups"
