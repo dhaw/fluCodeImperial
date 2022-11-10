@@ -1,5 +1,9 @@
 function f=runExamples
-%This code will generate all figure from the paper
+%This code will generate all figures from the paper
+
+%All data files requird can be downloaded here:
+%https://github.com/dhaw/fluCodeImperial 
+
 load('vaxparams.mat','vaxparams')
 load('cellNN.mat','cellNN','NNsums','NNbarTotal')
 %NNsums: state totals; NNbarTotal: age-groups summed by states
