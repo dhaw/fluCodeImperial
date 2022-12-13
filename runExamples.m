@@ -1,10 +1,14 @@
 function f=runExamples
-%This code will generate all figures from the paper
+%Execute "run.Examples on the command line to generat all figures and
+%supplementary figures in the manuscript.
 
+%% Select state for single-state plots:
+%"state=1" selects California, as presented in the main figures. 
+%The states are numbered as follows:
+%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
+state=1;
 
-%All data files requird can be downloaded here:
-%https://github.com/dhaw/fluCodeImperial 
-
+%% Load data:
 load('vaxparams.mat','vaxparams')
 load('cellNN.mat','cellNN','NNsums','NNbarTotal')
 %NNsums: state totals; NNbarTotal: age-groups summed by states
@@ -19,20 +23,18 @@ load('cellZ2.mat','cellZ2','realZ2');
 %Some codes inclde flags for various model variants that were used in
 %devising the study, or for other purposes, but not included in the manuscript
 
-%% Load/select objects
-%Select state for single-state plots:
-state=1;%1=CA, 2=CO, 3=CT, 4=GA, 5=MD, 6=MN, 7=NM, 8=NY, 9=OR, 10=TN
+%% Select objects
 names={'California','Colorado','Connecticut','Georgia','Maryland','Minnesota','New Mexico','New York','Oregon','Tennessee'};
 stateName=names{state};
-%
 NNbar=cellNN{state}';
 xdata=cellx{state};
 ydata=celly{state};
 ydataScaled=cellyScaled{state};
 xsto=cellxsto{state};
 params=xsto(end,:);
-%nstates=length(cellx);
-%nages=size(celly{1},2);
+tswitch=243;
+plotComp=1;%Plots data and simulation aggregated by week (comparison)
+plotEpis=0;%Plots ODE output
 
 %% List of input parameters ("params"/rows of mcmc output "xsto"):
 %1 - amplitude of seasonal forcing
@@ -45,10 +47,8 @@ params=xsto(end,:);
 %32 - R0
 %33 - gamma=1/TR (recovery rate)
 
-tswitch=243;
-plotComp=1;%Plots data and simulation aggregated by week (comparison)
-plotEpis=0;%Plots ODE output
-%Single simulation (final parameter set in MCMC output):
+%% The following individual lines may be executed on the command line to produce individual plots:
+%Single simulation (final parameter set in MCMC output used):
 [f,g,z2]=subPandemicSimulationVax(NNbar,params,xdata,plotComp,plotEpis,ydata,tswitch,vaxparams);
 
 %% FIGURE 1 - plot data:
@@ -102,6 +102,7 @@ for i=1:length(cellx)
     NNsums(i)=sum(cellNN{i});
 end
 %}
+
 %% Comment in to cable of mean/95% CB values for marginals
 %{
 colPerState=4;
