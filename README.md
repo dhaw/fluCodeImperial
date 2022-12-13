@@ -1,3 +1,2 @@
 # fluCodeImperial
-Codes for Haw, Aranimanpathy et al.
-The file runExamples.m contains step-by-step instructions for reproducing figures and running model fits. Data sources can be downloaded from [link](https://drive.google.com/drive/folders/1rwAz5WIA9IUplXhVz-Mb6aQ3uiZ_LDRX?usp=share_link). 
+Codes for Codes for "Using real-time data to guide decision-making during an influenza pandemic: a modelling analysis". The file runExamples.m contains step-by-step instructions for reproducing figures and running model fits. 
