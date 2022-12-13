@@ -1,5 +1,5 @@
 # fluCodeImperial
-All codes used for "Using real-time data to guide decision-making during an influenza pandemic: a modelling analysis" are included int his folder. The file runExamples.m contains step-by-step instructions for reproducing figures and running model fits.
+All codes used for "Using real-time data to guide decision-making during an influenza pandemic: a modelling analysis" are included int his folder. The file runExamples.m contains step-by-step method for reproducing figures and running model fits. A single execution "runExamples" on the command line will generate all main and supplementary figures in the manuscript. 
 
 Plots make use of files from the following sources, with some modifications:
 Holger Hoffmann (2022). Violin Plot (https://www.mathworks.com/matlabcentral/fileexchange/45134-violin-plot);
