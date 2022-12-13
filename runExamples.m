@@ -1,6 +1,7 @@
 function f=runExamples
 %This code will generate all figures from the paper
 
+
 %All data files requird can be downloaded here:
 %https://github.com/dhaw/fluCodeImperial 
 
@@ -57,7 +58,7 @@ plotDataAllStates(cellNN,cellx,cellyScaled);
 subWave2Z1(NNbar,xdata,ydata,ydataScaled,0,vaxparams,0,xsto);
 
 %% FIGURE 3 - fall-wave cumulative cases (Z2) for all states:
-plotz2(cellZ2,realZ2,NNsums)%xxToDo - check
+plotz2(cellZ2,realZ2,NNsums)
 
 %% FIGURE 4 - effect of delay in school openings (selected state):
 vaxTestPlot(NNbar,xdata,xsto,vaxparams);
@@ -79,7 +80,8 @@ plotMCMCproj(xsto,a,b);
 plotVax09(vaxparams,NNbarTotal);
 
 %% Run MCMC:
-[xsto_new, outsto, history, accept_rate,covmat]=subMCMC(NNbar,xdata,ydataScaled,xsto(1,:),vaxparams);
+%Comment in the next line to run MCMC adaptive on the chosed state
+%[xsto_new, outsto, history, accept_rate,covmat]=subMCMC(NNbar,xdata,ydataScaled,xsto(1,:),vaxparams);
 %Note a subtle change in threshold for each in the likelihood function
 %subLhood.m was used. It is currently set of CA and is commented should
 %the user wish to experiment
@@ -94,7 +96,7 @@ cellZ2=cell(nstates,1);
 realZ2=zeros(nages,nstates);
 NNsums=zeros(nstates,1);
 for i=1:length(cellx)
-    [Z2i,realZ2i]=subWave2Z1(cellNN{i}',cellx{i},celly{i},cellyScaled{i},0,vaxparams,0,cellxsto{i});%xxToDo - add flag for no plot (keep on above)
+    [Z2i,realZ2i]=subWave2Z1(cellNN{i}',cellx{i},celly{i},cellyScaled{i},0,vaxparams,0,cellxsto{i});
     cellZ2{i}=Z2i;
     realZ2(:,i)=realZ2i;
     NNsums(i)=sum(cellNN{i});
