@@ -33,9 +33,9 @@ params=xsto(end,:);
 %nstates=length(cellx);
 %nages=size(celly{1},2);
 
-%% List of input parameters ("params"/rows of mcmc output "xsto"): %xxToDo - finish list/naming
-%1 - 
-%2 - 
+%% List of input parameters ("params"/rows of mcmc output "xsto"):
+%1 - amplitude of seasonal forcing
+%2 - timing of peak seasonality (as a lag from 1st Jan)
 %3-27 - age-mixing matrix coefficients (listed vertically)
 %28 - proportion immune at start (of those born pre-1957)
 %29 - proportion of cases asymptomatic
